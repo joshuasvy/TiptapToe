@@ -1,9 +1,8 @@
 import { View, Text, SafeAreaView, StatusBar, KeyboardAvoidingView, TextInput, ActivityIndicator, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { useState } from 'react';
-import signIn from '../firebase/userAuth';
+import { signIn } from '../firebase/userAuth';
 import styles from '../layouts/SigninLayout';
-
 
 const SigninScreen = ({navigation}) => {
 
@@ -29,6 +28,7 @@ const SigninScreen = ({navigation}) => {
                 <TextInput style={styles.inputEmail}
                 numberOfLines={1}
                 placeholder="bhoxzkhentx@unicorn.me"
+                keyboardType='email-address'
                 value={email}
                 onChangeText={(text) => setEmail(text)}
                 />
@@ -47,8 +47,8 @@ const SigninScreen = ({navigation}) => {
             </View>
         </KeyboardAvoidingView>
         <Text style={{fontSize: 14.5, fontFamily: 'fontRegular', marginTop: 12, marginLeft: 18,}}>Forgot password?</Text>
-            <TouchableOpacity style={styles.signinBtn} activeOpacity={0.6}
-            onPress={() => signIn()}>
+
+            <TouchableOpacity style={styles.signinBtn} activeOpacity={0.6} onPress={() => signIn(email, password, navigation)}>
                 <Text style={{fontSize: 19, fontFamily: 'fontSemiBold'}}>Login</Text>
                 <Image style={styles.arrowIcon} source={require('../images/svg/rightIcon.png')}></Image>
             </TouchableOpacity>

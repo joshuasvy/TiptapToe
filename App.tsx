@@ -9,6 +9,7 @@ import SignupScreen from './screens/SignupScreen';
 import HomepageScreen from './screens/HomepageScreen';
 import NavigateScreen from './screens/NavigateScreen';
 import AboutScreen from './screens/AboutScreen';
+import Testing from './Testing';
 
 const Stack = createStackNavigator();
 
@@ -31,13 +32,14 @@ const App = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Signin" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="GetStarted" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="GetStarted" component={OnBoardingScreen}/>
         <Stack.Screen name="Signin" component={SigninScreen}/>
         <Stack.Screen name="Signup" component={SignupScreen}/>
         <Stack.Screen name="Homepage" component={HomepageScreen}/>
         <Stack.Screen name="Navigate" component={NavigateScreen}/>
         <Stack.Screen name="About" component={AboutScreen}/>
+        <Stack.Screen name="Test" component={Testing}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
