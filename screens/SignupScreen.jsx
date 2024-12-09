@@ -1,6 +1,7 @@
-import { View, Text, KeyboardAvoidingView, StatusBar, Image, TextInput, TouchableOpacity } from 'react-native';
+import { View, Text, SafeAreaView, KeyboardAvoidingView, Platform, StatusBar, Image, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React from 'react';
 import { useState } from 'react';
+import signUp from '../firebase/userAuth';
 import styles from '../layouts/SignupLayout';
 
 const SignupScreen = ({navigation}) => {
@@ -9,18 +10,17 @@ const SignupScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const [hideAndShow, sethideAndShow] = useState(true);
+  const [passwordVisibility, setPasswordVisibility] = useState(true);
+  const [confirmPassVisibility, setConfirmPassVisibility] = useState(true);
 
   return (
 
-    <KeyboardAvoidingView style={styles.container}
-    behavior='padding'
-    keyboardVerticalOffset={100}>
+    <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={'#ffffff'} barStyle={'dark-content'}/>
       <Image source={require ('../images/logo/logo.jpg')} style={styles.logo}/>
       <Text style={styles.signupText}>Sign up to {'\n'}</Text><Text style={styles.tipTapTone}>TIPTAPTONE</Text>
 
-      <View style={styles.inputContainer}>
+      <KeyboardAvoidingView behavior="padding">
         <View style={styles.inputContent}>
             <TextInput style={styles.input}
             numberOfLines={1}
@@ -41,9 +41,9 @@ const SignupScreen = ({navigation}) => {
             placeholder='Password'
             value={password}
             onChangeText={(text) => setPassword(text)}
-            secureTextEntry={hideAndShow}/>
-            <TouchableOpacity onPress={() => sethideAndShow(!hideAndShow)}>
-                    <Image source={ hideAndShow ? require('../images/svg/hidePassword.png') : require('../images/svg/showPassword.png')} style={styles.hideAndShowPassword}/>
+            secureTextEntry={passwordVisibility}/>
+            <TouchableOpacity onPress={() => setPasswordVisibility(!passwordVisibility)}>
+                    <Image source={ passwordVisibility ? require('../images/svg/hidePassword.png') : require('../images/svg/showPassword.png')} style={styles.hideAndShowPassword}/>
             </TouchableOpacity>
         </View>
         <View style={styles.inputContent}>
@@ -52,19 +52,19 @@ const SignupScreen = ({navigation}) => {
             placeholder='Confirm Password'
             value={confirmPassword}
             onChangeText={(text) => setConfirmPassword(text)}
-            secureTextEntry={hideAndShow}/>
-            <TouchableOpacity onPress={() => sethideAndShow(!hideAndShow)}>
-                    <Image source={ hideAndShow ? require('../images/svg/hidePassword.png') : require('../images/svg/showPassword.png')} style={styles.hideAndShowPassword}/>
+            secureTextEntry={confirmPassVisibility}/>
+            <TouchableOpacity onPress={() => setConfirmPassVisibility(!confirmPassVisibility)}>
+                    <Image source={ confirmPassVisibility ? require('../images/svg/hidePassword.png') : require('../images/svg/showPassword.png')} style={styles.hideAndShowPassword}/>
             </TouchableOpacity>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     
-      <TouchableOpacity style={styles.signupBtn} onPress={() => navigation.navigate('Signin')}>
+      <TouchableOpacity style={styles.signupBtn} onPress={signUp}>
         <Text style={{fontSize: 19, fontFamily: 'fontSemiBold'}}>Sign up</Text>
         <Image style={styles.arrowIcon} source={require('../images/svg/rightIcon.png')}></Image>
       </TouchableOpacity>
       
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   )
 }
 

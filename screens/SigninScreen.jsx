@@ -1,6 +1,7 @@
-import { View, Text, SafeAreaView, StatusBar, KeyboardAvoidingView, TextInput, TouchableOpacity, Image } from 'react-native';
+import { View, Text, SafeAreaView, StatusBar, KeyboardAvoidingView, TextInput, ActivityIndicator, TouchableOpacity, Image } from 'react-native';
 import React from 'react';
 import { useState } from 'react';
+import signIn from '../firebase/userAuth';
 import styles from '../layouts/SigninLayout';
 
 
@@ -11,7 +12,7 @@ const SigninScreen = ({navigation}) => {
     const [hideAndShow, sethideAndShow] = useState(true);
 
   return (
-    <KeyboardAvoidingView style={styles.container}
+    <SafeAreaView style={styles.container}
     behavior="padding"
     keyboardVerticalOffset={100}>
         <StatusBar backgroundColor={'#ffffff'} barStyle={'dark-content'}/>
@@ -22,7 +23,7 @@ const SigninScreen = ({navigation}) => {
             <Text style={styles.welcomeSubText}>Were happy to see you again, {'\n'}thank you for choosing us.</Text>
         </View>
         <Text style={styles.signinText}>Sign in to {'\n'}TIPTAPTONE</Text>
-        <View style={styles.inputContainer}>
+        <KeyboardAvoidingView behavior="padding" style={styles.inputContainer}>
             <Text style={{fontSize: 18, fontFamily: 'fontSemiBold'}}>Enter email address</Text>
             <View style={styles.emailInputContainer}>
                 <TextInput style={styles.inputEmail}
@@ -44,13 +45,14 @@ const SigninScreen = ({navigation}) => {
                     <Image source={ hideAndShow ? require('../images/svg/hidePassword.png') : require('../images/svg/showPassword.png')} style={styles.hideAndShowPassword}/>
                 </TouchableOpacity>
             </View>
-        </View>
+        </KeyboardAvoidingView>
         <Text style={{fontSize: 14.5, fontFamily: 'fontRegular', marginTop: 12, marginLeft: 18,}}>Forgot password?</Text>
-        <TouchableOpacity style={styles.signinBtn} activeOpacity={0.6}
-        onPress={() => navigation.navigate('Homepage')}>
-            <Text style={{fontSize: 19, fontFamily: 'fontSemiBold'}}>Login</Text>
-            <Image style={styles.arrowIcon} source={require('../images/svg/rightIcon.png')}></Image>
-        </TouchableOpacity>
+            <TouchableOpacity style={styles.signinBtn} activeOpacity={0.6}
+            onPress={() => signIn()}>
+                <Text style={{fontSize: 19, fontFamily: 'fontSemiBold'}}>Login</Text>
+                <Image style={styles.arrowIcon} source={require('../images/svg/rightIcon.png')}></Image>
+            </TouchableOpacity>
+
         <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center'}}>
             <Text style={{fontSize: 16, fontFamily: 'fontRegular'}}>Don't have an account?</Text>
             <TouchableOpacity activeOpacity={0.7} onPress={() => navigation.navigate('Signup')}>
@@ -58,7 +60,7 @@ const SigninScreen = ({navigation}) => {
             </TouchableOpacity>
 
         </View>
-    </KeyboardAvoidingView>
+    </SafeAreaView>
   )
 }
 
